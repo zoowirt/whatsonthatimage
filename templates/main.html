@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+whatsonthatimage
+
+{% endblock %}
+
+{% block content %}
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<link rel="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+<div class="row appname">
+    <div class="col text-center"><h2>What's on that image?</h2></div>
+</div>
+<br>
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <h4>
+                ResNet50 is a powerful neural network, which is trained on millions of labeled images.
+            </h4>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-6">
+            <h2>Upload an image to ResNet50:</h2>
+            <form action="/uploader" method="POST"
+                  enctype="multipart/form-data">
+                <input type="file" name="file"/>
+                <input type="submit"/>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-6 text-center">
+            <h5>Your upload:</h5>
+
+            <div class="w3-card-4 w3-center" style="width:100%; float:left; padding:1%">
+                <img src="{{path_to_uploaded_image}}" style="width:100%">
+            </div>
+
+        </div>
+        <div class="col-6 text-center">
+            <h5>Top 10 labels from ResNet50:</h5>
+            {{ classifications|safe }}
+            <script> document.getElementById("classifications").className = "table table-striped table-bordered"; </script>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
