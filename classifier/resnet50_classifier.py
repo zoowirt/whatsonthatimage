@@ -6,16 +6,13 @@ from keras.applications.resnet50 import preprocess_input, decode_predictions
 from keras.preprocessing import image
 
 model = ResNet50(weights="imagenet")
-graph = tf.get_default_graph()
-
 
 def classify_image(path_to_image: str):
     img = image.load_img(path_to_image, target_size=(224, 224))
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
     x = preprocess_input(x)
-    with graph.as_default():
-        preds = model.predict(x)
+    preds = model.predict(x)
 
     return create_html_table_from_preds(preds)
 
